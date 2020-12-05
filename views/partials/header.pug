@@ -1,0 +1,9 @@
+//- .header
+//- 	h2.display-6.m-b-2=title
+.header
+	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+		span.navbar-brand.mb-0.h1 Fellesbudsjett
+		if user
+			span#refresh.btn.btn-secondary Refresh
+			span#logout.btn.btn-secondary
+				a(href='/logout') Logout

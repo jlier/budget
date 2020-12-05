@@ -1,0 +1,11 @@
+html
+	head
+		include ../partials/head.pug
+		link(rel='stylesheet' type='text/css' href="stylesheets/login.css")
+	body.d-flex.flex-column
+		include ../partials/header.pug
+		.wrapper.flex-fill
+			form(action='/login' method='POST')
+				input#login(type='text' name='username' placeholder='Username')
+				input#password(type='password' name='password' placeholder='Password')
+				input(type='submit' value='Log In')

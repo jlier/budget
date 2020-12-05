@@ -1,0 +1,23 @@
+html
+	include ../partials/head.pug
+	script(src='/js/budget.js')
+	body.d-flex.flex-column.bg-dark
+		include ../partials/header.pug
+		.container.d-flex.flex-column.flex-fill.bg-light.pb-3
+			.row.flex-fill.align-items-center
+				.col
+					h1#statusText.text-success.text-center
+					p#days.text-center
+					hr.w-25
+					h5#altStatusText.text-center.text-muted
+			//- Form
+			.row
+				.col-12
+					form(method='POST' action='/update')
+						div.form-group
+							label.formLabel(for='monthly') Månedlig budsjett
+							input#monthly.form-control(type='text', value=monthly, name='monthly')
+						div.form-group
+							label.formLabel(for='left') Igjen på konto
+							input#left.form-control(type='text', value=left, name='left')
+						button#submit.btn.btn-primary(type='submit') OPPDATER
