@@ -5,7 +5,7 @@
 	"background_color": "#f8f9fa",
 	"display": "standalone",
 	"scope": "/",
-	"start_url": "https://daskebrett.herokuapp.com",
+	"start_url": "https://daskebrett.herokuapp.com/budget",
 	"description": "Dashboard for Chi-Chi og Johannes",
 	"orientation": "portrait",
 	"icons": [
