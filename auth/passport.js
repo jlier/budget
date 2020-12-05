@@ -12,11 +12,6 @@ const pool = new Pool({
 });
 
 module.exports = function(app) {
-
-	bcrypt.hash('testpassord', 5, (err, hash) => {
-		console.log(hash);
-	});
-
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
 	});

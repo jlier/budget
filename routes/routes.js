@@ -8,8 +8,10 @@ module.exports = (app) => {
 	app.get('/login', controllers.login);
 	app.get('/logout', controllers.logout);
 	app.get('/budget', controllers.budget);
+	app.post('/update', controllers.update);
 
 	app.post('/login', passport.authenticate('local'), (req, res) => {
 		res.redirect('/budget');
-	})
+	});
+
 }
