@@ -13,7 +13,6 @@ exports.index = (req, res) => {
 
 exports.login = (req, res) => {
 	if (req.user) {
-		console.log('Logged in:\n\tLogin -> Index\n==========\n')
 		res.redirect('/budget');
 	}
 	else {
@@ -28,7 +27,6 @@ exports.logout = (req, res) => {
 
 exports.budget = (req, res) => {
 	if(!req.isAuthenticated()) {
-		console.log('Not logged in.');
 		res.redirect('/login');
 	}
 	else{
