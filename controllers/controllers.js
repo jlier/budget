@@ -8,12 +8,10 @@ const pool = new Pool({
 })
 
 exports.index = (req, res) => {
-	console.log(req.session);
 	res.render('pages/index');
 }
 
 exports.login = (req, res) => {
-	console.log(req.session);
 	if (req.user) {
 		res.redirect('/budget');
 	}
@@ -23,19 +21,17 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-	console.log(req.session);
 	req.logout();
 	res.redirect('/login');
 }
 
 exports.budget = (req, res) => {
-	console.log(req.session);
 	if(!req.isAuthenticated()) {
 		res.redirect('/login');
 	}
 	else{
 		pool.connect((error, client, release) => {
-			client.query('select * from budget_parameter', (err, result) => {
+			client.query('select "left", budget from budget_parameter where user_id=$1', [req.user.id], (err, result) => {
 				release();
 
 				if (err) console.error(err);
