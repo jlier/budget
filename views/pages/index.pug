@@ -1,6 +1,18 @@
 html
 	head
 		include ../partials/head.pug
-	title Fellesbudsjett
-	body
-		a(href="/budget") Budsjett
+		//- link(rel='stylesheet' type='text/css' href="stylesheets/login.css")
+	body.d-flex.flex-column
+		include ../partials/header.pug
+		.container.d-flex.flex-column.flex-fill.bg-light.pb-3
+			.row.flex-fill.align-items-center
+				.col
+					.jumbotron
+						h1.display-4 Budsjett
+						p.lead 
+							| En enkel app for å holde styr på månedlige budsjett.
+						hr.my-4
+						p 
+							| Kun to verdier, et månedlig beløp og gjenværende sum på konto. Appen beregner hvordan du ligger an.
+						p.lead
+							a.btn.btn-primary.btn-lg(href='/budget' role='button') Budsjett

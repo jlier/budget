@@ -1,11 +1,16 @@
 html
-	head
-		include ../partials/head.pug
-		link(rel='stylesheet' type='text/css' href="stylesheets/login.css")
+	include ../partials/head.pug
+	link(rel='stylesheet' type='text/css' href="stylesheets/login.css")
 	body.d-flex.flex-column
 		include ../partials/header.pug
-		.wrapper.flex-fill
-			form(action='/login' method='POST')
-				input#login(type='email' name='username' placeholder='Username')
-				input#password(type='password' name='password' placeholder='Password')
-				input(type='submit' value='Log In')
+		.container.d-flex.flex-column.flex-fill.bg-light.pb-3
+			.row.flex-fill.align-items-center
+				.col
+					form(action='/login' method='post')
+						.form-group
+							label(for='inputEmail') Email address
+							input#inputEmail.form-control(type='email' name='username' placeholder="Enter email")
+						.form-group
+							label(for='inputPassword') Password
+							input#inputPassword.form-control(type='password' name='password' placeholder="Password")
+						button.btn.btn-primary(type='submit') Login

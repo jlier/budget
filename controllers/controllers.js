@@ -8,7 +8,9 @@ const pool = new Pool({
 })
 
 exports.index = (req, res) => {
-	res.render('pages/index');
+	res.render('pages/index', {
+		title: 'Daskebrett'
+	});
 }
 
 exports.login = (req, res) => {
@@ -16,7 +18,9 @@ exports.login = (req, res) => {
 		res.redirect('/budget');
 	}
 	else {
-		res.render('pages/login');
+		res.render('pages/login', {
+			title: 'Login'
+		});
 	}
 }
 
@@ -37,6 +41,7 @@ exports.budget = (req, res) => {
 				if (err) console.error(err);
 				else {
 					parameters = {
+						title: 'Budsjett',
 						monthly: result.rows[0].budget,
 						left: result.rows[0].left,
 						user: req.user
