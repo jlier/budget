@@ -13,5 +13,5 @@ module.exports = (app) => {
 	app.post('/login', passport.authenticate('local'), (req, res) => {
 		res.redirect('/budget');
 	});
-
+        app.post('/signup', controllers.signup);
 }
