@@ -8,10 +8,13 @@ module.exports = (app) => {
 	app.get('/login', controllers.login);
 	app.get('/logout', controllers.logout);
 	app.get('/budget', controllers.budget);
+	app.get('/signup', controllers.signupform);
+	
 	app.post('/update', controllers.update);
+	app.post('/signup', controllers.signup);
 
 	app.post('/login', passport.authenticate('local'), (req, res) => {
 		res.redirect('/budget');
 	});
-        app.post('/signup', controllers.signup);
+
 }

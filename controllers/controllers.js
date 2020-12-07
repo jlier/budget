@@ -1,7 +1,9 @@
 const { Pool } = require('pg');
+const {v4: uuidv4} = require('uuid');
+const bcrypt= require('bcrypt');
 
 const pool = new Pool({
-	connectionString: process.env.connection_string,
+	connectionString: process.env.DATABASE_URL,
 	ssl: {
 		rejectUnauthorized: false
 	}
@@ -14,13 +16,24 @@ exports.index = (req, res) => {
 }
 
 exports.login = (req, res) => {
-	if (req.user) {
+	if (req.isAuthenticated()) {
 		res.redirect('/budget');
 	}
 	else {
 		res.render('pages/login', {
 			title: 'Login'
 		});
+	}
+}
+
+exports.signupform = (req, res) => {
+	if (req.isAuthenticated()) {
+		res.redirect('/budget');
+	}
+	else {
+		res.render('pages/signup', {
+			title: 'Signup'
+		})
 	}
 }
 
@@ -54,7 +67,29 @@ exports.budget = (req, res) => {
 	}
 }
 
+exports.signup = (req, res) => {
+	pool.connect((error, client, release) => {
+		const query = 'insert into public.user (id, firstname, lastname, email, password) values ($1, $2, $3, $4, $5)';
+		const values = [uuidv4(), req.body.firstname, req.body.lastname, req.body.username, bcrypt.hash(req.body.password, 5)];
+		client.query(query, values, (err, result) => {
+			release();
+			if (err) {
+				console.error(err);
+				return res.send(err);
+			}
+			else {
+				res.redirect('/login');
+			}
+		})
+	})
+}
+
 exports.update = (req, res) => {
+	if(!req.isAuthenticated()) {
+		res.redirect('/login');
+		return;
+	}
+	// TODO: Do this client side
 	if(!req.body.monthly && !req.body.left) {
 		return res.status(400).send({
 			message: "Budget params can not be empty."
@@ -62,7 +97,6 @@ exports.update = (req, res) => {
 	}
 
 	pool.connect((error, client, release) => {
-		console.log(req.user.id)
 		const query = 'update budget_parameter set "left"=$1, "budget"=$2 where user_id=$3';
 		const values = [req.body.left, req.body.monthly, req.user.id];
 		client.query(query, values, (err, result) => {
