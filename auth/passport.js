@@ -1,11 +1,10 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
 const { Pool } = require('pg');
 const bcrypt= require('bcrypt');
 
 const pool = new Pool({
-	connectionString: process.env.connection_string,
+	connectionString: process.env.DATABASE_URL,
 	ssl: {
 		rejectUnauthorized: false
 	}
