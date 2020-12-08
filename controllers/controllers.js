@@ -69,18 +69,20 @@ exports.budget = (req, res) => {
 
 exports.signup = (req, res) => {
 	pool.connect((error, client, release) => {
-		const query = 'insert into public.user (id, firstname, lastname, email, password) values ($1, $2, $3, $4, $5)';
-		const values = [uuidv4(), req.body.firstname, req.body.lastname, req.body.username, bcrypt.hash(req.body.password, 5)];
-		client.query(query, values, (err, result) => {
-			release();
-			if (err) {
-				console.error(err);
-				return res.send(err);
-			}
-			else {
-				res.redirect('/login');
-			}
-		})
+		bcrypt.hash(req.body.password, 5, (err, hash) => {
+			const query = 'insert into public.user (id, firstname, lastname, email, password) values ($1, $2, $3, $4, $5)';
+			const values = [uuidv4(), req.body.firstname, req.body.lastname, req.body.username, hash];
+			client.query(query, values, (err, result) => {
+				release();
+				if (err) {
+					console.error(err);
+					return res.send(err);
+				}
+				else {
+					res.redirect('/login');
+				}
+			})
+		});
 	})
 }
 
