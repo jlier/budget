@@ -9,11 +9,13 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 const session = require('express-session');
+app.set('trust proxy', 1);
 app.use(session({
 		secret: process.env.secret,
 		resave: false,
 		saveUninitialized: true,
 		cookie: {
+			secure: true,
 			maxAge: 1000 * 60 * 60 * 24 * 365
 		}
 	}
