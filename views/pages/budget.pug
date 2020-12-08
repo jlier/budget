@@ -16,8 +16,8 @@ html
 					form(method='POST' action='/update')
 						div.form-group
 							label.formLabel(for='monthly') Månedlig budsjett
-							input#monthly.form-control(type='text', value=monthly, name='monthly')
+							input#monthly.form-control(type='number', value=monthly, name='monthly')
 						div.form-group
 							label.formLabel(for='left') Igjen på konto
-							input#left.form-control(type='text', value=left, name='left')
+							input#left.form-control(type='number', value=left, name='left')
 						button#submit.btn.btn-primary(type='submit') OPPDATER
