@@ -1,7 +1,10 @@
-$(document).ready( () => {
-	var left = parseInt($("#left").val(), 10);
-	var monthly = parseInt($("#monthly").val(), 10);
-	
+$(document).ready(() => {
+
+	// var left = parseInt($("#left").val(), 10);
+	// var monthly = parseInt($("#monthly").val(), 10);
+	var dbleft = parseInt($("#left").val(), 10);
+	var dbmonthly = parseInt($("#monthly").val(), 10);
+
 	var date = new Date();
 	var today = date.getDate();
 
@@ -19,27 +22,67 @@ $(document).ready( () => {
 	
 	var num_days = Math.ceil((salary - prev_salary) / 1000 / 3600 / 24)
 	var current_date_diff = Math.ceil((date - prev_salary) / 1000 / 3600 / 24)
+
+	var update = () => {
+		var left = parseInt($("#left").val(), 10);
+		var monthly = parseInt($("#monthly").val(), 10);
+
+		var res = (monthly / num_days * current_date_diff - monthly + left + left_add).toFixed(2);
+		console.log("Res 1:", res);
+		var altRes = ((left + left_add) / (num_days - current_date_diff + 1)).toFixed(2);
+
+		var stat = $("#statusText");
+		var altStat = $("#altStatusText");
+
+		var prefix = "";
+
+		if(res < 0) {
+			stat.removeClass('text-success');
+			stat.addClass('text-danger');
+
+			var days_until_positive = Math.ceil((res * -1) / (monthly / num_days))
+			$("#days").text(`${ days_until_positive } ${ days_until_positive === 1 ? 'dag' : 'dager'} bak skjema..`);
+		}
+		else {
+			stat.removeClass('text-danger');
+			stat.addClass('text-success');
+			prefix = "+"
+			$("#days").text("")
+		}
+
+		stat.text(`${ prefix }${ res } kr`);
+		altStat.text(`${ altRes } kr/dag`);
+
+		if (left != dbleft || monthly != dbmonthly) {
+			$("#submit").attr('disabled', false)
+		}
+		else if (left == dbleft && monthly == dbmonthly) {
+			$("#submit").attr('disabled', true)
+		}
+	}
+
+	update();
 	
-	var res = (monthly / num_days * current_date_diff - monthly + left + left_add).toFixed(2);
-	var altRes = ((left + left_add) / (num_days - current_date_diff + 1)).toFixed(2);
+	// var res = (monthly / num_days * current_date_diff - monthly + left + left_add).toFixed(2);
+	// var altRes = ((left + left_add) / (num_days - current_date_diff + 1)).toFixed(2);
 
-	var stat = $("#statusText");
-	var altStat = $("#altStatusText");
+	// var stat = $("#statusText");
+	// var altStat = $("#altStatusText");
 
-	var prefix = "";
+	// var prefix = "";
 
-	if(res < 0) {
-		stat.addClass('text-danger');
+	// if(res < 0) {
+	// 	stat.addClass('text-danger');
 
-		var days_until_positive = Math.ceil((res * -1) / (monthly / num_days))
-		$("#days").text(`${ days_until_positive } ${ days_until_positive === 1 ? 'dag' : 'dager'} bak skjema..`);
-	}
-	else {
-		prefix = "+"
-	}
+	// 	var days_until_positive = Math.ceil((res * -1) / (monthly / num_days))
+	// 	$("#days").text(`${ days_until_positive } ${ days_until_positive === 1 ? 'dag' : 'dager'} bak skjema..`);
+	// }
+	// else {
+	// 	prefix = "+"
+	// }
 
-	stat.text(`${ prefix }${ res } kr`);
-	altStat.text(`${ altRes } kr/dag`);
+	// stat.text(`${ prefix }${ res } kr`);
+	// altStat.text(`${ altRes } kr/dag`);
 
 	$("#refresh").click(() => {
 		location.reload(true);
@@ -48,4 +91,9 @@ $(document).ready( () => {
 	$("#logout").click(() => {
 		location.redirect('/logout');
 	});
+
+	$("#left").change(() => {
+		update();
+	})
+
 });
