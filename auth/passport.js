@@ -44,7 +44,6 @@ module.exports = function(app) {
 					}
 					bcrypt.compare(password, result.rows[0].password, function(err, check) {
 						if (err){
-							console.log('Error while checking password');
 							done(err);
 						}
 						else if (check){
@@ -59,7 +58,6 @@ module.exports = function(app) {
 						}
 						else{
 							// req.flash('danger', 'Incorrect password');
-							console.log('Incorrect password');
 							done(null, false);
 						}
 					});

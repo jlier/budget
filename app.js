@@ -1,33 +1,39 @@
 const express = require('express');
 const app = express();
 
-require('dotenv').config();
-
+const bodyParser = require('body-parser');
 const path = require('path');
-
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
 const session = require('express-session');
-app.set('trust proxy', 1);
-app.use(session({
-		secret: process.env.secret,
-		resave: false,
-		saveUninitialized: true,
-		cookie: {
-			secure: true,
-			maxAge: 1000 * 60 * 60 * 24 * 365
-		}
-	}
-));
+const pgSession = require('connect-pg-simple')(session);
+const pool = require('./db/index').getPool()
 
 const passport = require('passport');
+
+require('dotenv').config();
+
+app.use(cookieParser());
+app.use(session({
+	store: new pgSession({
+		pool: pool,
+		tableName: 'session'
+	}),
+	name: 'sid',
+	secret: process.env.secret,
+	resave: false,
+	saveUninitialized: true,
+	cookie: {
+		// secure: true,
+		maxAge: 1000 * 60 * 60 * 24 * 365
+	}
+}));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 require('./routes/routes')(app);
 
