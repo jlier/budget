@@ -25,7 +25,7 @@ hr {
 	font-style: italic;
 }
 
-#submit {
+#submit, #btnSubmit, #btnLogin {
 	width: 100%;
 }
 
