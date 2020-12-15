@@ -28,8 +28,8 @@ $(document).ready(() => {
 		var left = parseInt(leftDOM.val(), 10);
 		var monthly = parseInt(monthlyDOM.val(), 10);
 
-		var res = (monthly / num_days * current_date_diff - monthly + left + left_add).toFixed(2);
-		var altRes = ((left + left_add) / (num_days - current_date_diff + 1)).toFixed(2);
+		var res = (monthly / num_days * current_date_diff - monthly + left + left_add).toFixed(0);
+		var altRes = ((left + left_add) / (num_days - current_date_diff + 1)).toFixed(0);
 
 		var stat = $("#statusText");
 		var altStat = $("#altStatusText");
