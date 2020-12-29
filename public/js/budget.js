@@ -13,7 +13,7 @@ $(document).ready(() => {
 	var month_add = 0;
 
 	if(today >= 25 || today < 12) 
-		left_add += monthly / 2;
+		left_add += dbmonthly / 2;
 		if (today >= 25) {
 			month_add = 1;
 	}
