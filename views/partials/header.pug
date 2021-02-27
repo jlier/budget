@@ -1,12 +1,12 @@
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-	a.navbar-brand(href='#') Budsjett
+	a.navbar-brand(href="/") Daskebrett
 	button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarToggler' aria-controls='navbarToggler' aria-expanded='false' aria-label='Toggle navigation')
 		span.navbar-toggler-icon
-	#navbarToggler.collapse.navbar-collapse
-		ul.navbar-nav.mr-auto.mt-2.mt-lg-0
-			li.nav-item.active
-				a.nav-link(href='/budget')
-					| Refresh 
-					span.sr-only (current)
-			li.nav-item
-				a.nav-link(href='/logout') Logout
+	if user
+		#navbarToggler.collapse.navbar-collapse
+			ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+					li.nav-item
+						a.nav-link(href="#")= user.firstname + " " + user.lastname
+					li.nav-item
+						a.nav-link(href='/logout') 
+							| Logout

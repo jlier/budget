@@ -3,6 +3,8 @@ $(document).ready(() => {
 	var leftDOM = $("#left");
 	var monthlyDOM = $("#monthly");
 
+	var updated_check = $("#updated");
+
 	var dbleft = parseInt(leftDOM.val(), 10);
 	var dbmonthly = parseInt(monthlyDOM.val(), 10);
 
@@ -25,6 +27,7 @@ $(document).ready(() => {
 	var current_date_diff = Math.ceil((date - prev_salary) / 1000 / 3600 / 24)
 
 	var update = () => {
+
 		var left = parseInt(leftDOM.val(), 10);
 		var monthly = parseInt(monthlyDOM.val(), 10);
 
@@ -71,6 +74,12 @@ $(document).ready(() => {
 		location.redirect('/logout');
 	});
 
+	$("#inputs").focus(() => {
+		var d = $("#display");
+		d.removeClass('align-items-center');
+		d.addClass('align-items-end');
+	});
+
 	[leftDOM, monthlyDOM].forEach(element => {
 
 		element.change(() => {
@@ -84,10 +93,15 @@ $(document).ready(() => {
 		})
 
 		element.focusout(() =>  {
-			var d = $("#display");
-			d.removeClass('align-items-end');
-			d.addClass('align-items-center');
+			console.log($(document.activeElement).val())
+			setTimeout(() => {
+				var d = $("#display");
+				d.removeClass('align-items-end');
+				d.addClass('align-items-center');
+
+			}, 125);
 		})
 	})
+
 
 });

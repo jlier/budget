@@ -5,10 +5,14 @@ module.exports = (app) => {
 	const controllers = require('../controllers/controllers');
 
 	app.get('/', controllers.index);
+
 	app.get('/login', controllers.login);
 	app.get('/logout', controllers.logout);
-	app.get('/budget', controllers.budget);
 	app.get('/signup', controllers.signupform);
+	
+	app.get('/budget', controllers.budget);
+
+	app.get('/pics', controllers.pics);
 	
 	app.post('/update', controllers.update);
 	app.post('/signup', controllers.signup);

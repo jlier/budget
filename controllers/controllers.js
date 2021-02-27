@@ -10,9 +10,20 @@ const pool = new Pool({
 })
 
 exports.index = (req, res) => {
-	res.render('pages/index', {
-		title: 'Daskebrett'
-	});
+	pool.connect((error, client, release) => {
+		client.query('select name, lead, description from apps', (err, result) => {
+			release();
+
+			if (err) console.error(err);
+			else {
+				res.render('pages/index', {
+					title: 'Home',
+					apps: result.rows,
+					user: req.user
+				});
+			}
+		})
+	})
 }
 
 exports.login = (req, res) => {
@@ -65,6 +76,14 @@ exports.budget = (req, res) => {
 			})
 		});
 	}
+}
+
+exports.pics = (req, res) => {
+	res.render('pages/pics', 
+		{
+			title:'Pics',
+			user: req.user
+		});
 }
 
 exports.signup = (req, res) => {
