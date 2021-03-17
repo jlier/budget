@@ -9,11 +9,11 @@ html
 				.row.flex-fill.align-items-center
 					.col
 						.jumbotron
-							h1.display-4= app.name
+							h2= app.name
 							p.lead= app.lead
-								//- | En enkel app for å holde styr på månedlige budsjett.
+
 							hr.my-4
 							p= app.description
-								//- | Kun to verdier, et månedlig beløp og gjenværende sum på konto. Appen beregner hvordan du ligger an.
+
 							p.lead
-								a.btn.btn-primary.btn-lg(href='/'+app.name role='button')= app.name
+								a.btn.btn-primary.btn-lg(href='/'+app.name+"/" role='button')= app.name

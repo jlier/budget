@@ -9,6 +9,7 @@ const pool = new Pool({
 	}
 })
 
+
 exports.index = (req, res) => {
 	pool.connect((error, client, release) => {
 		client.query('select name, lead, description from apps', (err, result) => {
@@ -53,39 +54,6 @@ exports.logout = (req, res) => {
 	res.redirect('/login');
 }
 
-exports.budget = (req, res) => {
-	if(!req.isAuthenticated()) {
-		res.redirect('/login');
-	}
-	else{
-		pool.connect((error, client, release) => {
-			client.query('select "left", budget from budget_parameter where user_id=$1', [req.user.id], (err, result) => {
-				release();
-
-				if (err) console.error(err);
-				else {
-					parameters = {
-						title: 'Budsjett',
-						monthly: result.rows[0].budget,
-						left: result.rows[0].left,
-						user: req.user
-					}
-					res.render('pages/budget', parameters);
-					return;
-				}
-			})
-		});
-	}
-}
-
-exports.pics = (req, res) => {
-	res.render('pages/pics', 
-		{
-			title:'Pics',
-			user: req.user
-		});
-}
-
 exports.signup = (req, res) => {
 	pool.connect((error, client, release) => {
 		bcrypt.hash(req.body.password, 5, (err, hash) => {
@@ -103,32 +71,4 @@ exports.signup = (req, res) => {
 			})
 		});
 	})
-}
-
-exports.update = (req, res) => {
-	if(!req.isAuthenticated()) {
-		res.redirect('/login');
-		return;
-	}
-	// TODO: Do this client side
-	if(!req.body.monthly && !req.body.left) {
-		return res.status(400).send({
-			message: "Budget params can not be empty."
-		})
-	}
-
-	pool.connect((error, client, release) => {
-		const query = 'update budget_parameter set "left"=$1, "budget"=$2 where user_id=$3';
-		const values = [req.body.left, req.body.monthly, req.user.id];
-		client.query(query, values, (err, result) => {
-			release();
-			if (err) {
-				console.error(err);
-				return res.send(err);
-			}
-			else {
-				res.redirect('/budget');
-			}
-		})
-	});
 }
