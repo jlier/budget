@@ -11,7 +11,7 @@ const pool = new Pool({
 
 exports.shoppinglist = (req, res) => {
 	if(!req.isAuthenticated()) {
-		res.redirect('/login');
+		return res.redirect('/login');
 	}
 	pool.connect((error, client, release) => {
 		client.query('select id, name from list where exists (select 1 from list_user where list_id = list.id and list_user.user_id = $1);', [req.user.id], (err, result) => {
@@ -32,7 +32,7 @@ exports.shoppinglist = (req, res) => {
 
 exports.list = (req, res) => {
 	if(!req.isAuthenticated()) {
-		res.redirect('/login');
+		return res.redirect('/login');
 	}
 	var params;
 	pool.connect((error, client, release) => {
