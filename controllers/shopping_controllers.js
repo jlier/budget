@@ -10,6 +10,9 @@ const pool = new Pool({
 })
 
 exports.shoppinglist = (req, res) => {
+	if(!req.isAuthenticated()) {
+		res.redirect('/login');
+	}
 	pool.connect((error, client, release) => {
 		client.query('select id, name from list where exists (select 1 from list_user where list_id = list.id and list_user.user_id = $1);', [req.user.id], (err, result) => {
 			release();
@@ -27,27 +30,10 @@ exports.shoppinglist = (req, res) => {
 	})
 }
 
-// exports.list = (req, res) => {
-// 	var params = {}
-// 	pool.connect((error, client, release) => {
-// 		client.query('select l.name as list, i.name, li.amount from list as l left join list_item as li on li.list_id = l.id left join item as i on i.id = li.item_id where l.id = $1', [req.params.list_id], (err, result) => {
-// 			release();
-
-// 			if (err) console.error(err);
-// 			else {
-// 				res.render('pages/shoppinglist', 
-// 				{
-// 					title:'Shopping list',
-// 					user: req.user,
-// 					items: result.rows,
-// 					list: result.rows[0].list
-// 				});
-// 			}
-// 		})
-// 	})
-// }
-
 exports.list = (req, res) => {
+	if(!req.isAuthenticated()) {
+		res.redirect('/login');
+	}
 	var params;
 	pool.connect((error, client, release) => {
 		client.query('select i.name, li.amount from list_item as li join item as i on i.id = li.item_id where li.list_id = $1', [req.params.list_id], (err, result) => {
