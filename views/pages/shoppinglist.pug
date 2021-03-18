@@ -1,8 +1,8 @@
 html
 	include ../partials/head.pug
-	body.bg-dark
+	body.d-flex.flex-column.bg-dark
 		include ../partials/header.pug
-		div.container.bg-light
+		.container.d-flex.flex-column.flex-fill.bg-light.pb-3
 			if lists
 				ul.list-group
 					each list in lists
