@@ -9,7 +9,6 @@ const pool = new Pool({
 	}
 })
 
-
 exports.index = (req, res) => {
 	pool.connect((error, client, release) => {
 		client.query('select name, lead, description from apps', (err, result) => {

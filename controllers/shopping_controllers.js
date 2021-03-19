@@ -19,7 +19,7 @@ exports.shoppinglist = (req, res) => {
 
 			if (err) console.error(err);
 			else {
-				res.render('pages/shoppinglist', 
+				res.render('pages/shopping/shoppinglist', 
 				{
 					title:'Shopping list',
 					user: req.user,
@@ -51,7 +51,7 @@ exports.list = (req, res) => {
 					if (err) console.error(err2);
 					else {
 						params.list = result2.rows[0].name;
-						res.render('pages/shoppinglist', params);
+						res.render('pages/shopping/shoppinglist_detail', params);
 					}
 				})
 			}

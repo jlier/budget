@@ -1,27 +1,28 @@
 {
-  "name": "daskebrett",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
-    "connect-pg-simple": "^6.2.1",
-    "cookie-parser": "^1.4.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "pg": "^8.5.1",
-    "pug": "^3.0.0",
-    "uuid": "^8.3.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "author": "Johannes Omberg Lier",
-  "license": "ISC"
+	"name": "daskebrett",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"dependencies": {
+		"bcrypt": "^5.0.0",
+		"body-parser": "^1.19.0",
+		"connect-pg-simple": "^6.2.1",
+		"cookie-parser": "^1.4.5",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-session": "^1.17.1",
+		"passport": "^0.4.1",
+		"passport-local": "^1.0.0",
+		"pg": "^8.5.1",
+		"pug": "^3.0.2",
+		"uuid": "^8.3.1",
+		"ws": "^7.4.4"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js"
+	},
+	"author": "Johannes Omberg Lier",
+	"license": "ISC"
 }

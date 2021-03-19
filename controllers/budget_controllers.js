@@ -26,7 +26,7 @@ exports.budget = (req, res) => {
 						left: result.rows[0].left,
 						user: req.user
 					}
-					res.render('pages/budget', parameters);
+					res.render('pages/budget/budget', parameters);
 					return;
 				}
 			})
@@ -34,13 +34,12 @@ exports.budget = (req, res) => {
 	}
 }
 
-
-
 exports.update = (req, res) => {
 	if(!req.isAuthenticated()) {
 		res.redirect('/login');
 		return;
 	}
+	
 	// TODO: Do this client side
 	if(!req.body.monthly && !req.body.left) {
 		return res.status(400).send({

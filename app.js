@@ -34,7 +34,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 require('./routes/routes')(app);
 
 app.use(express.static(__dirname + '/public'));
