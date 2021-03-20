@@ -9,6 +9,16 @@ const pool = new Pool({
 	}
 })
 
+exports.checkLogin = (req, res, next) => {
+	if (!req.isAuthenticated()) {
+		req.session.redirectTo = req.originalUrl;
+		res.redirect('/login/');
+	}
+	else {
+		next();
+	}
+}
+
 exports.index = (req, res) => {
 	pool.connect((error, client, release) => {
 		client.query('select name, lead, description from apps', (err, result) => {
@@ -28,7 +38,7 @@ exports.index = (req, res) => {
 
 exports.login = (req, res) => {
 	if (req.isAuthenticated()) {
-		res.redirect('/budget');
+		res.redirect('/');
 	}
 	else {
 		res.render('pages/login', {
@@ -39,7 +49,7 @@ exports.login = (req, res) => {
 
 exports.signupform = (req, res) => {
 	if (req.isAuthenticated()) {
-		res.redirect('/budget');
+		res.redirect('/budget/');
 	}
 	else {
 		res.render('pages/signup', {
@@ -50,7 +60,7 @@ exports.signupform = (req, res) => {
 
 exports.logout = (req, res) => {
 	req.logout();
-	res.redirect('/login');
+	res.redirect('/');
 }
 
 exports.signup = (req, res) => {

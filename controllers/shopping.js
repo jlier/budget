@@ -9,17 +9,14 @@ const pool = new Pool({
 	}
 })
 
-exports.shoppinglist = (req, res) => {
-	if(!req.isAuthenticated()) {
-		return res.redirect('/login');
-	}
+exports.list = (req, res) => {
 	pool.connect((error, client, release) => {
 		client.query('select id, name from list where exists (select 1 from list_user where list_id = list.id and list_user.user_id = $1);', [req.user.id], (err, result) => {
 			release();
 
 			if (err) console.error(err);
 			else {
-				res.render('pages/shopping/shoppinglist', 
+				res.render('pages/shopping/lists', 
 				{
 					title:'Shopping list',
 					user: req.user,
@@ -30,10 +27,7 @@ exports.shoppinglist = (req, res) => {
 	})
 }
 
-exports.list = (req, res) => {
-	if(!req.isAuthenticated()) {
-		return res.redirect('/login');
-	}
+exports.detail = (req, res) => {
 	var params;
 	pool.connect((error, client, release) => {
 		client.query('select i.name, li.amount from list_item as li join item as i on i.id = li.item_id where li.list_id = $1', [req.params.list_id], (err, result) => {
@@ -51,7 +45,7 @@ exports.list = (req, res) => {
 					if (err) console.error(err2);
 					else {
 						params.list = result2.rows[0].name;
-						res.render('pages/shopping/shoppinglist_detail', params);
+						res.render('pages/shopping/detail', params);
 					}
 				})
 			}
