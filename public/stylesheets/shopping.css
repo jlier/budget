@@ -1,0 +1,12 @@
+#itemInput {
+	border: none;
+	padding: 0;
+}
+
+#itemInput:focus {
+	box-shadow: none;
+}
+
+#itemForm {
+	margin-bottom: 0;
+}
