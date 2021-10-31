@@ -66,8 +66,8 @@ exports.logout = (req, res) => {
 exports.signup = (req, res) => {
 	pool.connect((error, client, release) => {
 		bcrypt.hash(req.body.password, 5, (err, hash) => {
-			const query = 'insert into public.user (id, firstname, lastname, email, password) values ($1, $2, $3, $4, $5)';
-			const values = [uuidv4(), req.body.firstname, req.body.lastname, req.body.username, hash];
+			const query = 'insert into dash_user (firstname, lastname, email, password) values ($1, $2, $3, $4, $5)';
+			const values = [req.body.firstname, req.body.lastname, req.body.username, hash];
 			client.query(query, values, (err, result) => {
 				release();
 				if (err) {

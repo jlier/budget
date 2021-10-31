@@ -17,7 +17,7 @@ module.exports = function(app) {
 
 	passport.deserializeUser(function(user_id, done) {
 		pool.connect((err, client, release) => {
-			client.query('select * from public.user where id=$1', [user_id], (err, result) => {
+			client.query('select * from dash_user where id=$1', [user_id], (err, result) => {
 				release();
 				if (err) return done(err);
 				done(null, result.rows[0]);
@@ -33,7 +33,7 @@ module.exports = function(app) {
 				return done(error, false);
 			}
 			else {
-				client.query('select * from public.user where email=$1', [username], (err, result) => {
+				client.query('select * from dash_user where email=$1', [username], (err, result) => {
 					release();
 					
 					if (err) return done(err);

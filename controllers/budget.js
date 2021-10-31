@@ -15,7 +15,7 @@ exports.budget = (req, res) => {
 	}
 	else{
 		pool.connect((error, client, release) => {
-			client.query('select "left", budget from budget_parameter where user_id=$1', [req.user.id], (err, result) => {
+			client.query('select left_of_budget, budget from budget_parameter where user_id=$1', [req.user.id], (err, result) => {
 				release();
 
 				if (err) console.error(err);
@@ -48,7 +48,7 @@ exports.update = (req, res) => {
 	}
 
 	pool.connect((error, client, release) => {
-		const query = 'update budget_parameter set "left"=$1, "budget"=$2 where user_id=$3';
+		const query = 'update budget_parameter set left_of_budget=$1, budget=$2 where user_id=$3';
 		const values = [req.body.left, req.body.monthly, req.user.id];
 		client.query(query, values, (err, result) => {
 			release();
