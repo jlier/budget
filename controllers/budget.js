@@ -23,7 +23,7 @@ exports.budget = (req, res) => {
 					parameters = {
 						title: 'Budsjett',
 						monthly: result.rows[0].budget,
-						left: result.rows[0].left,
+						left: result.rows[0].left_of_budget,
 						user: req.user
 					}
 					res.render('pages/budget/budget', parameters);

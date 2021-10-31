@@ -35,7 +35,7 @@ module.exports = function(app) {
 			else {
 				client.query('select * from dash_user where email=$1', [username], (err, result) => {
 					release();
-					
+
 					if (err) return done(err);
 
 					if (result.rowCount == 0) {
