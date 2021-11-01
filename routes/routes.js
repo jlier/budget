@@ -14,8 +14,13 @@ module.exports = (app) => {
 
 	app.post('/signup', main.signup);
 	app.post('/login', passport.authenticate('local'), (req, res) => {
-		var redir = req.session.redirectTo;
-		delete req.session.redirectTo;
+		if (req.session.redirectTo) {
+			var redir = req.session.redirectTo;
+			delete req.session.redirectTo;
+		}
+		else { 
+			var redir = '/'
+		}
 		res.redirect(redir);
 	});
 	
