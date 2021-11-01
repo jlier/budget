@@ -1,13 +1,4 @@
-const {v4: uuidv4} = require('uuid');
-const bcrypt= require('bcrypt');
-
-const { Pool } = require('pg');
-const pool = new Pool({
-	connectionString: process.env.DATABASE_URL,
-	ssl: {
-		rejectUnauthorized: false
-	}
-})
+const pool = require('../db/index').getPool();
 
 exports.budget = (req, res) => {
 	if(!req.isAuthenticated()) {
@@ -26,7 +17,7 @@ exports.budget = (req, res) => {
 						left: result.rows[0].left_of_budget,
 						user: req.user
 					}
-					res.render('pages/budget/budget', parameters);
+					res.render('pages/budget', parameters);
 					return;
 				}
 			})
