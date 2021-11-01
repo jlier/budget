@@ -1,36 +1,26 @@
 const pool = require('../db/index').getPool();
 
 exports.budget = (req, res) => {
-	if(!req.isAuthenticated()) {
-		res.redirect('/login');
-	}
-	else{
-		pool.connect((error, client, release) => {
-			client.query('select left_of_budget, budget from budget_parameter where user_id=$1', [req.user.id], (err, result) => {
-				release();
+	pool.connect((error, client, release) => {
+		client.query('select left_of_budget, budget from budget_parameter where user_id=$1', [req.user.id], (err, result) => {
+			release();
 
-				if (err) console.error(err);
-				else {
-					parameters = {
-						title: 'Budsjett',
-						monthly: result.rows[0].budget,
-						left: result.rows[0].left_of_budget,
-						user: req.user
-					}
-					res.render('pages/budget', parameters);
-					return;
+			if (err) console.error(err);
+			else {
+				parameters = {
+					title: 'Budsjett',
+					monthly: result.rows[0].budget,
+					left: result.rows[0].left_of_budget,
+					user: req.user
 				}
-			})
-		});
-	}
+				res.render('pages/budget', parameters);
+				return;
+			}
+		})
+	});
 }
 
 exports.update = (req, res) => {
-	if(!req.isAuthenticated()) {
-		res.redirect('/login');
-		return;
-	}
-	
 	// TODO: Do this client side
 	if(!req.body.monthly && !req.body.left) {
 		return res.status(400).send({
