@@ -1,0 +1,19 @@
+html
+	head
+		include ../partials/head.pug
+		//- link(rel='stylesheet' type='text/css' href="stylesheets/login.css")
+	body.d-flex.flex-column.bg-dark
+		include ../partials/header.pug
+		.container.d-flex.flex-column.flex-fill.bg-light.pb-3
+			each app in apps
+				.row.flex-fill.align-items-center
+					.col
+						.jumbotron
+							h2= app.name
+							p.lead= app.lead
+
+							hr.my-4
+							p= app.description
+
+							p.lead
+								a.btn.btn-primary.btn-lg(href='/' + app.name.toLowerCase() role='button')= app.name

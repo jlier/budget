@@ -1,0 +1,37 @@
+body {
+	/*PWA*/
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+}
+
+/* Form input fields */
+input {
+	font-size: 16px;
+}
+
+hr {
+	border-color: rgba(0,0,0,.3);
+}
+
+.formLabel {
+	font-weight: bold;
+	margin-bottom: 0;
+	font-size: 12px;
+}
+
+#days {
+	font-style: italic;
+}
+
+#submit, #btnSubmit, #btnLogin {
+	width: 100%;
+}
+
+#logout a {
+	color: white;	
+}
+
+#itemForm {
+	width: 100%;
+}

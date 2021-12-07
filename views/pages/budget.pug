@@ -1,0 +1,31 @@
+html
+	include ../partials/head.pug
+	link(rel='stylesheet' type='text/css' href='/stylesheets/main.css')
+	script(src='/js/budget.js')
+	
+	body.d-flex.flex-column.bg-dark
+		
+		include ../partials/header.pug
+		
+		//- display 
+		.container.d-flex.flex-column.flex-fill.bg-light.pb-3
+			.row.flex-fill.align-items-center
+				.col.mb-3
+
+					h1#statusText.text-success.text-center
+					p#days.text-center
+					hr.w-25
+					h5#altStatusText.text-center.text-muted
+			
+			//- input-form
+			.row
+				.col-12
+					form(method='POST' action='/budget/update')
+						div
+							div.form-group
+								label.formLabel(for='monthly') MÅNEDLIG BUDSJETT
+								input#monthly.form-control(type='text' pattern='[0-9]*' value=monthly name='monthly')
+							div.form-group
+								label.formLabel(for='left') IGJEN PÅ KONTO
+								input#left.form-control.d-inline.mr-2(type='text' pattern='[0-9]*' value=left name='left')
+						button#submit.btn.btn-primary(type='submit' disabled=true) OPPDATER
